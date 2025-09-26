@@ -6,9 +6,9 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appinterface.Api.*
+import com.example.appinterface.Api.RetrofitInstance
 import com.example.appinterface.Adapter.JugadorAdapter
-import com.example.appinterface.Models.JugadorCU
+import com.example.appinterface.Models.Jugador
 import com.example.appinterface.R
 import kotlinx.coroutines.*
 
@@ -48,7 +48,6 @@ class JugadoresActivity : AppCompatActivity() {
         val rv = findViewById<RecyclerView>(R.id.rvJugadores)
         rv.layoutManager = LinearLayoutManager(this)
         adapter = JugadorAdapter(mutableListOf()) { seleccionado ->
-            // Autollenar para editar/eliminar
             if (isAdmin) {
                 etIdActualizar.setText(seleccionado.id.toString())
                 etNombre.setText(seleccionado.nombre)
@@ -90,7 +89,7 @@ class JugadoresActivity : AppCompatActivity() {
                     toast("Completa nombre, edad, user_id y equipo_id válidos")
                     return@setOnClickListener
                 }
-                val body = buildCU(edad, userId, equipoId)
+                val body = buildJugador(edad, userId, equipoId, id = 0) // id=0 para crear
                 crear(body) {
                     limpiarInputs()
                     listar()
@@ -108,7 +107,7 @@ class JugadoresActivity : AppCompatActivity() {
                     toast("Completa nombre, edad, user_id y equipo_id válidos")
                     return@setOnClickListener
                 }
-                val body = buildCU(edad, userId, equipoId)
+                val body = buildJugador(edad, userId, equipoId, id = id)
                 actualizar(id, body) {
                     listar()
                     toast("Actualizado")
@@ -127,7 +126,8 @@ class JugadoresActivity : AppCompatActivity() {
         listar()
     }
 
-    private fun buildCU(edad: Int, userId: Int, equipoId: Int) = JugadorCU(
+    private fun buildJugador(edad: Int, userId: Int, equipoId: Int, id: Int) = Jugador(
+        id = id,
         nombre = etNombre.text.toString().trim(),
         n_documento = etDocumento.text.toString().trim(),
         fecha_nacimiento = etNacimiento.text.toString().trim(), // "YYYY-MM-DD"
@@ -154,7 +154,7 @@ class JugadoresActivity : AppCompatActivity() {
         }
     }
 
-    private fun crear(body: JugadorCU, onOk: () -> Unit) {
+    private fun crear(body: Jugador, onOk: () -> Unit) {
         io.launch {
             try {
                 val res = RetrofitInstance.api2kotlin.crearJugador(body)
@@ -167,7 +167,7 @@ class JugadoresActivity : AppCompatActivity() {
         }
     }
 
-    private fun actualizar(id: Int, body: JugadorCU, onOk: () -> Unit) {
+    private fun actualizar(id: Int, body: Jugador, onOk: () -> Unit) {
         io.launch {
             try {
                 val res = RetrofitInstance.api2kotlin.actualizarJugador(id, body)

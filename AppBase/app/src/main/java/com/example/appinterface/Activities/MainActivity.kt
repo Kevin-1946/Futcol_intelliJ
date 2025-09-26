@@ -7,8 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.appinterface.Models.LoginRequest
 import com.example.appinterface.Api.RetrofitInstance
+import com.example.appinterface.Models.Login
 import com.example.appinterface.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -50,7 +50,8 @@ class MainActivity : AppCompatActivity() {
 
             ioScope.launch {
                 try {
-                    val res = RetrofitInstance.api2kotlin.login(LoginRequest(email, pass))
+                    // Usamos el modelo unificado Login
+                    val res = RetrofitInstance.api2kotlin.login(Login(email = email, password = pass))
                     withContext(Dispatchers.Main) {
                         btnLogin.isEnabled = true
                         if (res.isSuccessful && res.body() != null) {
@@ -59,10 +60,10 @@ class MainActivity : AppCompatActivity() {
                             // Guarda sesión simple
                             getSharedPreferences("app_prefs", MODE_PRIVATE).edit()
                                 .putInt("user_id", body.userId ?: -1)
-                                .putString("role", body.role)   // role: "ADMIN" o "CAPITAN"
+                                .putString("role", body.role)   // "ADMIN" o "CAPITAN"
                                 .apply()
 
-                            // Navegar a HOME (desde allí eliges Torneos o Jugadores)
+                            // Navegar a HOME (ahí eliges Torneos o Jugadores)
                             val isAdmin = body.role == "ADMIN"
                             startActivity(
                                 Intent(this@MainActivity, HomeActivity::class.java)
