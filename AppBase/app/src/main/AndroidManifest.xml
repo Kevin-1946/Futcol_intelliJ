@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+		package="com.example.appinterface"
+		xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- Permiso de Internet para consumir tu backend -->
+	<uses-permission android:name="android.permission.INTERNET" />
+
+	<application
+			android:allowBackup="true"
+			android:dataExtractionRules="@xml/data_extraction_rules"
+			android:fullBackupContent="@xml/backup_rules"
+			android:label="@string/app_name"
+			android:supportsRtl="true"
+			android:theme="@style/Theme.AppInterface"
+			android:usesCleartextTraffic="true">
+
+		<!-- Activity de inicio (login) -->
+		<activity
+				android:name=".Activities.MainActivity"
+				android:exported="true">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
+		</activity>
+
+		<!-- Home con botones a Torneos y Jugadores -->
+		<activity
+				android:name=".Activities.HomeActivity"
+				android:exported="false" />
+
+		<!-- Pantallas internas -->
+		<activity
+				android:name=".Activities.TorneosActivity"
+				android:exported="false" />
+		<activity
+				android:name=".Activities.JugadoresActivity"
+				android:exported="false" />
+	</application>
+
+</manifest>

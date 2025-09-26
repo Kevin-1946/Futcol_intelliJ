@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout
+            android:orientation="vertical" android:padding="16dp"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/tvRole"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" android:textSize="16sp"
+                android:text="Rol: "/>
+
+        <Button
+                android:id="@+id/btnRefrescar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Listar jugadores" />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvJugadores"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginTop="8dp" />
+
+        <!-- Panel solo para ADMIN -->
+        <LinearLayout
+                android:id="@+id/adminPanel"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Crear / Actualizar / Eliminar" />
+
+            <EditText android:id="@+id/etNombre" android:hint="Nombre"
+                      android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <EditText android:id="@+id/etDocumento" android:hint="N° Documento"
+                      android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <EditText android:id="@+id/etNacimiento" android:hint="Fecha Nacimiento (YYYY-MM-DD)"
+                      android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <EditText android:id="@+id/etEmail" android:hint="Email" android:inputType="textEmailAddress"
+                      android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <EditText android:id="@+id/etPassword" android:hint="Password" android:inputType="textPassword"
+                      android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <EditText android:id="@+id/etGenero" android:hint="Género"
+                      android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <EditText android:id="@+id/etEdad" android:hint="Edad" android:inputType="number"
+                      android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <EditText android:id="@+id/etUserId" android:hint="User ID" android:inputType="number"
+                      android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <EditText android:id="@+id/etEquipoId" android:hint="Equipo ID" android:inputType="number"
+                      android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <!-- Actualizar -->
+            <EditText
+                    android:id="@+id/etIdActualizar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="ID a actualizar" android:inputType="number"
+                    android:layout_marginTop="8dp"/>
+
+            <Button
+                    android:id="@+id/btnActualizar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Actualizar"
+                    android:layout_marginTop="8dp"/>
+
+            <!-- Eliminar -->
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+                <EditText
+                        android:id="@+id/etIdEliminar"
+                        android:layout_weight="1"
+                        android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:hint="ID a eliminar" android:inputType="number"/>
+                <Button
+                        android:id="@+id/btnEliminar"
+                        android:text="Eliminar"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <!-- Crear -->
+            <Button android:id="@+id/btnCrear" android:text="Crear"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
