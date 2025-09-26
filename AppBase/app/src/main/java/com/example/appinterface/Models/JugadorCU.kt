@@ -3,7 +3,7 @@ package com.example.appinterface.Models
 data class JugadorCU(
     val nombre: String,
     val n_documento: String,
-    val fecha_nacimiento: String, // "YYYY-MM-DD"
+    val fecha_nacimiento: String,
     val email: String,
     val password: String,
     val genero: String,
