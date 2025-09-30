@@ -8,7 +8,6 @@
 		android:layout_height="match_parent"
 		tools:context=".Activities.MainActivity">
 
-	<!-- Imagen de portada (Picasso la cargará por URL) -->
 	<ImageView
 			android:id="@+id/ivFotoLogin"
 			android:layout_width="0dp"

@@ -20,7 +20,7 @@ class TorneosActivity : AppCompatActivity() {
     private lateinit var adminPanel: View
     private lateinit var adapter: TorneoAdapter
 
-    // Inputs admin
+
     private lateinit var etNombre: EditText
     private lateinit var etInicio: EditText
     private lateinit var etFin: EditText
@@ -43,7 +43,7 @@ class TorneosActivity : AppCompatActivity() {
         tvRole.text = if (isAdmin) "Rol: ADMIN" else "Rol: CAPITAN"
         adminPanel.visibility = if (isAdmin) View.VISIBLE else View.GONE
 
-        // Recycler
+
         val rv = findViewById<RecyclerView>(R.id.rvTorneos)
         rv.layoutManager = LinearLayoutManager(this)
         adapter = TorneoAdapter(mutableListOf()) { seleccionado ->
@@ -62,11 +62,11 @@ class TorneosActivity : AppCompatActivity() {
         }
         rv.adapter = adapter
 
-        // Botón listar
+
         findViewById<Button>(R.id.btnRefrescar).setOnClickListener { listar() }
 
         if (isAdmin) {
-            // Referencias panel admin
+
             etNombre = findViewById(R.id.etNombre)
             etInicio = findViewById(R.id.etInicio)
             etFin = findViewById(R.id.etFin)
@@ -78,7 +78,7 @@ class TorneosActivity : AppCompatActivity() {
             etIdActualizar = findViewById(R.id.etIdActualizar)
             etIdEliminar = findViewById(R.id.etIdEliminar)
 
-            // Crear
+
             findViewById<Button>(R.id.btnCrear).setOnClickListener {
                 val precio = etPrecio.text.toString().toDoubleOrNull()
                 if (etNombre.text.isBlank() || precio == null) {
@@ -92,7 +92,7 @@ class TorneosActivity : AppCompatActivity() {
                 }
             }
 
-            // Actualizar
+
             findViewById<Button>(R.id.btnActualizar).setOnClickListener {
                 val id = etIdActualizar.text.toString().toIntOrNull()
                 val precio = etPrecio.text.toString().toDoubleOrNull()
@@ -105,7 +105,7 @@ class TorneosActivity : AppCompatActivity() {
                 }
             }
 
-            // Eliminar
+
             findViewById<Button>(R.id.btnEliminar).setOnClickListener {
                 val id = etIdEliminar.text.toString().toIntOrNull()
                 if (id == null) { toast("ID inválido"); return@setOnClickListener }
@@ -120,8 +120,8 @@ class TorneosActivity : AppCompatActivity() {
     private fun buildTorneo(precio: Double, id: Int) = Torneo(
         id = id,
         nombre = etNombre.text.toString().trim(),
-        fecha_inicio = etInicio.text.toString().trim(), // "YYYY-MM-DD"
-        fecha_fin = etFin.text.toString().trim(),       // "YYYY-MM-DD"
+        fecha_inicio = etInicio.text.toString().trim(),
+        fecha_fin = etFin.text.toString().trim(),
         categoria = etCategoria.text.toString().trim(),
         modalidad = etModalidad.text.toString().trim(),
         organizador = etOrganizador.text.toString().trim(),

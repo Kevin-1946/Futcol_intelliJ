@@ -3,7 +3,6 @@
 		package="com.example.appinterface"
 		xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<!-- Permiso de Internet para consumir tu backend -->
 	<uses-permission android:name="android.permission.INTERNET" />
 
 	<application
@@ -15,7 +14,6 @@
 			android:theme="@style/Theme.AppInterface"
 			android:usesCleartextTraffic="true">
 
-		<!-- Activity de inicio (login) -->
 		<activity
 				android:name=".Activities.MainActivity"
 				android:exported="true">
@@ -25,12 +23,10 @@
 			</intent-filter>
 		</activity>
 
-		<!-- Home con botones a Torneos y Jugadores -->
 		<activity
 				android:name=".Activities.HomeActivity"
 				android:exported="false" />
 
-		<!-- Pantallas internas -->
 		<activity
 				android:name=".Activities.TorneosActivity"
 				android:exported="false" />

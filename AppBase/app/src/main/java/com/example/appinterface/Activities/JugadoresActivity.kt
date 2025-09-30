@@ -20,7 +20,6 @@ class JugadoresActivity : AppCompatActivity() {
     private lateinit var adminPanel: View
     private lateinit var adapter: JugadorAdapter
 
-    // Inputs admin
     private lateinit var etNombre: EditText
     private lateinit var etDocumento: EditText
     private lateinit var etNacimiento: EditText
@@ -63,11 +62,11 @@ class JugadoresActivity : AppCompatActivity() {
         }
         rv.adapter = adapter
 
-        // Botón listar
+
         findViewById<Button>(R.id.btnRefrescar).setOnClickListener { listar() }
 
         if (isAdmin) {
-            // Referencias panel admin
+
             etNombre     = findViewById(R.id.etNombre)
             etDocumento  = findViewById(R.id.etDocumento)
             etNacimiento = findViewById(R.id.etNacimiento)
@@ -80,7 +79,7 @@ class JugadoresActivity : AppCompatActivity() {
             etIdActualizar = findViewById(R.id.etIdActualizar)
             etIdEliminar   = findViewById(R.id.etIdEliminar)
 
-            // Crear
+
             findViewById<Button>(R.id.btnCrear).setOnClickListener {
                 val edad = etEdad.text.toString().toIntOrNull()
                 val userId = etUserId.text.toString().toIntOrNull()
@@ -96,7 +95,7 @@ class JugadoresActivity : AppCompatActivity() {
                 }
             }
 
-            // Actualizar
+
             findViewById<Button>(R.id.btnActualizar).setOnClickListener {
                 val id = etIdActualizar.text.toString().toIntOrNull()
                 val edad = etEdad.text.toString().toIntOrNull()
@@ -114,7 +113,7 @@ class JugadoresActivity : AppCompatActivity() {
                 }
             }
 
-            // Eliminar
+
             findViewById<Button>(R.id.btnEliminar).setOnClickListener {
                 val id = etIdEliminar.text.toString().toIntOrNull()
                 if (id == null) { toast("ID inválido"); return@setOnClickListener }
@@ -122,7 +121,7 @@ class JugadoresActivity : AppCompatActivity() {
             }
         }
 
-        // listar de entrada
+
         listar()
     }
 
