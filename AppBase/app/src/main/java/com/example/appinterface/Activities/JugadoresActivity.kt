@@ -6,9 +6,9 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appinterface.Api.*
+import com.example.appinterface.Api.RetrofitInstance
 import com.example.appinterface.Adapter.JugadorAdapter
-import com.example.appinterface.Models.JugadorCU
+import com.example.appinterface.Models.Jugador
 import com.example.appinterface.R
 import kotlinx.coroutines.*
 
@@ -20,7 +20,6 @@ class JugadoresActivity : AppCompatActivity() {
     private lateinit var adminPanel: View
     private lateinit var adapter: JugadorAdapter
 
-    // Inputs admin
     private lateinit var etNombre: EditText
     private lateinit var etDocumento: EditText
     private lateinit var etNacimiento: EditText
@@ -48,7 +47,6 @@ class JugadoresActivity : AppCompatActivity() {
         val rv = findViewById<RecyclerView>(R.id.rvJugadores)
         rv.layoutManager = LinearLayoutManager(this)
         adapter = JugadorAdapter(mutableListOf()) { seleccionado ->
-            // Autollenar para editar/eliminar
             if (isAdmin) {
                 etIdActualizar.setText(seleccionado.id.toString())
                 etNombre.setText(seleccionado.nombre)
@@ -64,11 +62,11 @@ class JugadoresActivity : AppCompatActivity() {
         }
         rv.adapter = adapter
 
-        // Botón listar
+
         findViewById<Button>(R.id.btnRefrescar).setOnClickListener { listar() }
 
         if (isAdmin) {
-            // Referencias panel admin
+
             etNombre     = findViewById(R.id.etNombre)
             etDocumento  = findViewById(R.id.etDocumento)
             etNacimiento = findViewById(R.id.etNacimiento)
@@ -81,7 +79,7 @@ class JugadoresActivity : AppCompatActivity() {
             etIdActualizar = findViewById(R.id.etIdActualizar)
             etIdEliminar   = findViewById(R.id.etIdEliminar)
 
-            // Crear
+
             findViewById<Button>(R.id.btnCrear).setOnClickListener {
                 val edad = etEdad.text.toString().toIntOrNull()
                 val userId = etUserId.text.toString().toIntOrNull()
@@ -90,14 +88,14 @@ class JugadoresActivity : AppCompatActivity() {
                     toast("Completa nombre, edad, user_id y equipo_id válidos")
                     return@setOnClickListener
                 }
-                val body = buildCU(edad, userId, equipoId)
+                val body = buildJugador(edad, userId, equipoId, id = 0) // id=0 para crear
                 crear(body) {
                     limpiarInputs()
                     listar()
                 }
             }
 
-            // Actualizar
+
             findViewById<Button>(R.id.btnActualizar).setOnClickListener {
                 val id = etIdActualizar.text.toString().toIntOrNull()
                 val edad = etEdad.text.toString().toIntOrNull()
@@ -108,14 +106,14 @@ class JugadoresActivity : AppCompatActivity() {
                     toast("Completa nombre, edad, user_id y equipo_id válidos")
                     return@setOnClickListener
                 }
-                val body = buildCU(edad, userId, equipoId)
+                val body = buildJugador(edad, userId, equipoId, id = id)
                 actualizar(id, body) {
                     listar()
                     toast("Actualizado")
                 }
             }
 
-            // Eliminar
+
             findViewById<Button>(R.id.btnEliminar).setOnClickListener {
                 val id = etIdEliminar.text.toString().toIntOrNull()
                 if (id == null) { toast("ID inválido"); return@setOnClickListener }
@@ -123,11 +121,12 @@ class JugadoresActivity : AppCompatActivity() {
             }
         }
 
-        // listar de entrada
+
         listar()
     }
 
-    private fun buildCU(edad: Int, userId: Int, equipoId: Int) = JugadorCU(
+    private fun buildJugador(edad: Int, userId: Int, equipoId: Int, id: Int) = Jugador(
+        id = id,
         nombre = etNombre.text.toString().trim(),
         n_documento = etDocumento.text.toString().trim(),
         fecha_nacimiento = etNacimiento.text.toString().trim(), // "YYYY-MM-DD"
@@ -154,7 +153,7 @@ class JugadoresActivity : AppCompatActivity() {
         }
     }
 
-    private fun crear(body: JugadorCU, onOk: () -> Unit) {
+    private fun crear(body: Jugador, onOk: () -> Unit) {
         io.launch {
             try {
                 val res = RetrofitInstance.api2kotlin.crearJugador(body)
@@ -167,7 +166,7 @@ class JugadoresActivity : AppCompatActivity() {
         }
     }
 
-    private fun actualizar(id: Int, body: JugadorCU, onOk: () -> Unit) {
+    private fun actualizar(id: Int, body: Jugador, onOk: () -> Unit) {
         io.launch {
             try {
                 val res = RetrofitInstance.api2kotlin.actualizarJugador(id, body)

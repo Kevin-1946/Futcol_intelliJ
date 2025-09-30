@@ -24,7 +24,6 @@
                 android:layout_height="220dp"
                 android:layout_marginTop="8dp" />
 
-        <!-- Panel solo para ADMIN -->
         <LinearLayout
                 android:id="@+id/adminPanel"
                 android:visibility="gone"
@@ -53,7 +52,6 @@
             <EditText android:id="@+id/etSedes" android:hint="Sedes"
                       android:layout_width="match_parent" android:layout_height="wrap_content"/>
 
-            <!-- Actualizar -->
             <EditText
                     android:id="@+id/etIdActualizar"
                     android:layout_width="match_parent"
@@ -69,7 +67,6 @@
                     android:text="Actualizar"
                     android:layout_marginTop="8dp"/>
 
-            <!-- Eliminar -->
             <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -86,7 +83,6 @@
                         android:layout_marginStart="8dp"/>
             </LinearLayout>
 
-            <!-- Crear -->
             <Button android:id="@+id/btnCrear" android:text="Crear"
                     android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"/>

@@ -28,7 +28,6 @@
             android:text="Ir a Jugadores"
             android:layout_marginTop="12dp" />
 
-    <!-- Botón Cerrar Sesión -->
     <Button
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"

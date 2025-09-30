@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AppBase.AppInterface.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AppBase.AppInterface.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AppBase.AppInterface.app.androidTest~1.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AppBase.AppInterface.app.androidTest~1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AppBase.AppInterface.app.main~1.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AppBase.AppInterface.app.main~1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AppBase.AppInterface.app.unitTest~1.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AppBase.AppInterface.app.unitTest~1.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AppInterface.iml" filepath="$PROJECT_DIR$/.idea/modules/AppInterface.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AppInterface.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AppInterface.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AppInterface.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AppInterface.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AppInterface.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AppInterface.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AppInterface.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AppInterface.app.unitTest.iml" />
     </modules>
   </component>
 </project>
