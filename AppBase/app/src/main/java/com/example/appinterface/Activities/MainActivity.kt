@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.appinterface.Api.RetrofitInstance
 import com.example.appinterface.Models.Login
 import com.example.appinterface.R
+import com.squareup.picasso.Picasso   // <-- Import Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,6 +31,19 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(sysBars.left, sysBars.top, sysBars.right, sysBars.bottom)
             insets
         }
+
+        // -------- Cargar imagen del login con Picasso --------
+        val ivFotoLogin = findViewById<ImageView>(R.id.ivFotoLogin)
+        val portadaUrl =
+            "https://images.pexels.com/photos/32260108/pexels-photo-32260108.jpeg"
+        Picasso.get()
+            .load(portadaUrl)
+            .placeholder(android.R.drawable.progress_indeterminate_horizontal) // opcional
+            .error(android.R.drawable.ic_menu_report_image)                    // opcional
+            .fit()
+            .centerCrop()
+            .into(ivFotoLogin)
+        // -----------------------------------------------------
 
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val etPass  = findViewById<EditText>(R.id.etPass)
