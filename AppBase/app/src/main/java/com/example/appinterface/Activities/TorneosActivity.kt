@@ -6,9 +6,9 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appinterface.Api.*
+import com.example.appinterface.Api.RetrofitInstance
 import com.example.appinterface.Adapter.TorneoAdapter
-import com.example.appinterface.Models.TorneoCU
+import com.example.appinterface.Models.Torneo
 import com.example.appinterface.R
 import kotlinx.coroutines.*
 
@@ -47,7 +47,7 @@ class TorneosActivity : AppCompatActivity() {
         val rv = findViewById<RecyclerView>(R.id.rvTorneos)
         rv.layoutManager = LinearLayoutManager(this)
         adapter = TorneoAdapter(mutableListOf()) { seleccionado ->
-            // Al tocar un item, llenamos los campos para actualizar/eliminar
+            // Autollenar al tocar un item
             if (isAdmin) {
                 etIdActualizar.setText(seleccionado.id.toString())
                 etNombre.setText(seleccionado.nombre)
@@ -85,7 +85,7 @@ class TorneosActivity : AppCompatActivity() {
                     toast("Completa nombre y precio")
                     return@setOnClickListener
                 }
-                val body = buildCU(precio)
+                val body = buildTorneo(precio, id = 0)   // id=0 para crear
                 crear(body) {
                     limpiarInputs()
                     listar()
@@ -98,7 +98,7 @@ class TorneosActivity : AppCompatActivity() {
                 val precio = etPrecio.text.toString().toDoubleOrNull()
                 if (id == null) { toast("ID inválido"); return@setOnClickListener }
                 if (etNombre.text.isBlank() || precio == null) { toast("Completa nombre y precio"); return@setOnClickListener }
-                val body = buildCU(precio)
+                val body = buildTorneo(precio, id = id)
                 actualizar(id, body) {
                     listar()
                     toast("Actualizado")
@@ -117,7 +117,8 @@ class TorneosActivity : AppCompatActivity() {
         listar()
     }
 
-    private fun buildCU(precio: Double) = TorneoCU(
+    private fun buildTorneo(precio: Double, id: Int) = Torneo(
+        id = id,
         nombre = etNombre.text.toString().trim(),
         fecha_inicio = etInicio.text.toString().trim(), // "YYYY-MM-DD"
         fecha_fin = etFin.text.toString().trim(),       // "YYYY-MM-DD"
@@ -143,7 +144,7 @@ class TorneosActivity : AppCompatActivity() {
         }
     }
 
-    private fun crear(body: TorneoCU, onOk: () -> Unit) {
+    private fun crear(body: Torneo, onOk: () -> Unit) {
         io.launch {
             try {
                 val res = RetrofitInstance.api2kotlin.crearTorneo(body)
@@ -156,7 +157,7 @@ class TorneosActivity : AppCompatActivity() {
         }
     }
 
-    private fun actualizar(id: Int, body: TorneoCU, onOk: () -> Unit) {
+    private fun actualizar(id: Int, body: Torneo, onOk: () -> Unit) {
         io.launch {
             try {
                 val res = RetrofitInstance.api2kotlin.actualizarTorneo(id, body)

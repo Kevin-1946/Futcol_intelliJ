@@ -1,3 +1,3 @@
-package com.example.appinterface.Api
+package com.example.appinterface
 
 class DataResponse ( val message: List<String>)

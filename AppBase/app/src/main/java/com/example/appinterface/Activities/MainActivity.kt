@@ -7,9 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.appinterface.Models.LoginRequest
 import com.example.appinterface.Api.RetrofitInstance
+import com.example.appinterface.Models.Login
 import com.example.appinterface.R
+import com.squareup.picasso.Picasso   // <-- Import Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,6 +32,19 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        // -------- Cargar imagen del login con Picasso --------
+        val ivFotoLogin = findViewById<ImageView>(R.id.ivFotoLogin)
+        val portadaUrl =
+            "https://images.pexels.com/photos/32260108/pexels-photo-32260108.jpeg"
+        Picasso.get()
+            .load(portadaUrl)
+            .placeholder(android.R.drawable.progress_indeterminate_horizontal) // opcional
+            .error(android.R.drawable.ic_menu_report_image)                    // opcional
+            .fit()
+            .centerCrop()
+            .into(ivFotoLogin)
+        // -----------------------------------------------------
+
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val etPass  = findViewById<EditText>(R.id.etPass)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
@@ -50,7 +64,8 @@ class MainActivity : AppCompatActivity() {
 
             ioScope.launch {
                 try {
-                    val res = RetrofitInstance.api2kotlin.login(LoginRequest(email, pass))
+                    // Usamos el modelo unificado Login
+                    val res = RetrofitInstance.api2kotlin.login(Login(email = email, password = pass))
                     withContext(Dispatchers.Main) {
                         btnLogin.isEnabled = true
                         if (res.isSuccessful && res.body() != null) {
@@ -59,10 +74,10 @@ class MainActivity : AppCompatActivity() {
                             // Guarda sesión simple
                             getSharedPreferences("app_prefs", MODE_PRIVATE).edit()
                                 .putInt("user_id", body.userId ?: -1)
-                                .putString("role", body.role)   // role: "ADMIN" o "CAPITAN"
+                                .putString("role", body.role)   // "ADMIN" o "CAPITAN"
                                 .apply()
 
-                            // Navegar a HOME (desde allí eliges Torneos o Jugadores)
+                            // Navegar a HOME (ahí eliges Torneos o Jugadores)
                             val isAdmin = body.role == "ADMIN"
                             startActivity(
                                 Intent(this@MainActivity, HomeActivity::class.java)
