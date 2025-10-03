@@ -1,16 +1,14 @@
 package com.example.appinterface.Api
 
-import com.example.appinterface.Models.*   // ← aquí está Login, Torneo, Jugador
+import com.example.appinterface.Models.*
 import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiServicesKotlin {
 
-    // --- Auth (usa el modelo unificado Login) ---
     @POST("auth/login")
     suspend fun login(@Body body: Login): Response<Login>
 
-    // --- Torneos ---
     @GET("torneos")
     suspend fun getTorneos(): Response<List<Torneo>>
 
@@ -26,7 +24,7 @@ interface ApiServicesKotlin {
     @DELETE("torneos/{id}")
     suspend fun eliminarTorneo(@Path("id") id: Int): Response<String>
 
-    // --- Jugadores ---
+
     @GET("jugadores")
     suspend fun getJugadores(): Response<List<Jugador>>
 

@@ -10,7 +10,6 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.appinterface.Api.RetrofitInstance
 import com.example.appinterface.Models.Login
 import com.example.appinterface.R
-import com.squareup.picasso.Picasso   // <-- Import Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,25 +24,11 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // Ajuste de insets (si tu layout raíz tiene id @+id/main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val sysBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(sysBars.left, sysBars.top, sysBars.right, sysBars.bottom)
             insets
         }
-
-        // -------- Cargar imagen del login con Picasso --------
-        val ivFotoLogin = findViewById<ImageView>(R.id.ivFotoLogin)
-        val portadaUrl =
-            "https://images.pexels.com/photos/32260108/pexels-photo-32260108.jpeg"
-        Picasso.get()
-            .load(portadaUrl)
-            .placeholder(android.R.drawable.progress_indeterminate_horizontal) // opcional
-            .error(android.R.drawable.ic_menu_report_image)                    // opcional
-            .fit()
-            .centerCrop()
-            .into(ivFotoLogin)
-        // -----------------------------------------------------
 
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val etPass  = findViewById<EditText>(R.id.etPass)
@@ -64,20 +49,17 @@ class MainActivity : AppCompatActivity() {
 
             ioScope.launch {
                 try {
-                    // Usamos el modelo unificado Login
                     val res = RetrofitInstance.api2kotlin.login(Login(email = email, password = pass))
                     withContext(Dispatchers.Main) {
                         btnLogin.isEnabled = true
                         if (res.isSuccessful && res.body() != null) {
                             val body = res.body()!!
 
-                            // Guarda sesión simple
                             getSharedPreferences("app_prefs", MODE_PRIVATE).edit()
                                 .putInt("user_id", body.userId ?: -1)
-                                .putString("role", body.role)   // "ADMIN" o "CAPITAN"
+                                .putString("role", body.role)
                                 .apply()
 
-                            // Navegar a HOME (ahí eliges Torneos o Jugadores)
                             val isAdmin = body.role == "ADMIN"
                             startActivity(
                                 Intent(this@MainActivity, HomeActivity::class.java)

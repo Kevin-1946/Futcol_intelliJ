@@ -4,7 +4,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
-    // Tu backend local (Emulator → 10.0.2.2)
     private const val BASE_URL_APIKOTLIN = "http://10.0.2.2:8080/"
 
     val api2kotlin: ApiServicesKotlin by lazy {

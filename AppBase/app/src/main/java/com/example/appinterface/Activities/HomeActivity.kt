@@ -13,7 +13,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        // Recibe el rol desde el login (o podrías leerlo de SharedPreferences)
         val isAdmin = intent.getBooleanExtra("isAdmin", false)
 
         findViewById<TextView>(R.id.tvBienvenida).text =
@@ -33,20 +32,16 @@ class HomeActivity : AppCompatActivity() {
             )
         }
 
-        // -- Cerrar Sesión --
         findViewById<Button>(R.id.btnLogout).setOnClickListener {
-            // Borra sesión
             getSharedPreferences("app_prefs", MODE_PRIVATE).edit()
                 .remove("user_id")
                 .remove("role")
                 .apply()
 
-            // Vuelve al login limpiando el back stack
             val intent = Intent(this, MainActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             }
             startActivity(intent)
-            // opcional: finishAffinity()
         }
     }
 }

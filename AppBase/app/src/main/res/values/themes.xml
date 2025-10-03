@@ -1,9 +1,27 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-	<!-- Base application theme. -->
-	<style name="Base.Theme.AppInterface" parent="Theme.Material3.DayNight.NoActionBar">
-		<!-- Customize your light theme here. -->
-		<!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<resources>
+	<style name="Theme.AppInterface" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+		<item name="colorPrimary">@color/primary</item>
+		<item name="colorPrimaryVariant">@color/primary_dark</item>
+		<item name="colorSecondary">@color/secondary</item>
+
+		<item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+		<item name="materialButtonStyle">@style/Widget.App.PrimaryButton</item>
+
+		<item name="android:statusBarColor">@android:color/transparent</item>
+		<item name="android:navigationBarColor">@android:color/black</item>
 	</style>
 
-	<style name="Theme.AppInterface" parent="Base.Theme.AppInterface"/>
+	<style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+		<item name="boxCornerRadiusTopStart">16dp</item>
+		<item name="boxCornerRadiusTopEnd">16dp</item>
+		<item name="boxCornerRadiusBottomStart">16dp</item>
+		<item name="boxCornerRadiusBottomEnd">16dp</item>
+	</style>
+
+	<style name="Widget.App.PrimaryButton" parent="Widget.MaterialComponents.Button">
+		<item name="cornerRadius">16dp</item>
+		<item name="android:insetTop">12dp</item>
+		<item name="android:insetBottom">12dp</item>
+		<item name="android:textStyle">bold</item>
+	</style>
 </resources>

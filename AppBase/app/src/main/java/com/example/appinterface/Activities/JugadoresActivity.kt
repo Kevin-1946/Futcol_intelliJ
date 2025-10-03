@@ -19,8 +19,6 @@ class JugadoresActivity : AppCompatActivity() {
     private lateinit var tvRole: TextView
     private lateinit var adminPanel: View
     private lateinit var adapter: JugadorAdapter
-
-    // Inputs admin
     private lateinit var etNombre: EditText
     private lateinit var etDocumento: EditText
     private lateinit var etNacimiento: EditText
@@ -44,7 +42,7 @@ class JugadoresActivity : AppCompatActivity() {
         tvRole.text = if (isAdmin) "Rol: ADMIN" else "Rol: CAPITAN"
         adminPanel.visibility = if (isAdmin) View.VISIBLE else View.GONE
 
-        // Recycler
+
         val rv = findViewById<RecyclerView>(R.id.rvJugadores)
         rv.layoutManager = LinearLayoutManager(this)
         adapter = JugadorAdapter(mutableListOf()) { seleccionado ->
@@ -63,11 +61,9 @@ class JugadoresActivity : AppCompatActivity() {
         }
         rv.adapter = adapter
 
-        // Botón listar
         findViewById<Button>(R.id.btnRefrescar).setOnClickListener { listar() }
 
         if (isAdmin) {
-            // Referencias panel admin
             etNombre     = findViewById(R.id.etNombre)
             etDocumento  = findViewById(R.id.etDocumento)
             etNacimiento = findViewById(R.id.etNacimiento)
@@ -80,7 +76,6 @@ class JugadoresActivity : AppCompatActivity() {
             etIdActualizar = findViewById(R.id.etIdActualizar)
             etIdEliminar   = findViewById(R.id.etIdEliminar)
 
-            // Crear
             findViewById<Button>(R.id.btnCrear).setOnClickListener {
                 val edad = etEdad.text.toString().toIntOrNull()
                 val userId = etUserId.text.toString().toIntOrNull()
@@ -89,14 +84,13 @@ class JugadoresActivity : AppCompatActivity() {
                     toast("Completa nombre, edad, user_id y equipo_id válidos")
                     return@setOnClickListener
                 }
-                val body = buildJugador(edad, userId, equipoId, id = 0) // id=0 para crear
+                val body = buildJugador(edad, userId, equipoId, id = 0)
                 crear(body) {
                     limpiarInputs()
                     listar()
                 }
             }
 
-            // Actualizar
             findViewById<Button>(R.id.btnActualizar).setOnClickListener {
                 val id = etIdActualizar.text.toString().toIntOrNull()
                 val edad = etEdad.text.toString().toIntOrNull()
@@ -114,7 +108,6 @@ class JugadoresActivity : AppCompatActivity() {
                 }
             }
 
-            // Eliminar
             findViewById<Button>(R.id.btnEliminar).setOnClickListener {
                 val id = etIdEliminar.text.toString().toIntOrNull()
                 if (id == null) { toast("ID inválido"); return@setOnClickListener }
@@ -122,7 +115,6 @@ class JugadoresActivity : AppCompatActivity() {
             }
         }
 
-        // listar de entrada
         listar()
     }
 
@@ -130,7 +122,7 @@ class JugadoresActivity : AppCompatActivity() {
         id = id,
         nombre = etNombre.text.toString().trim(),
         n_documento = etDocumento.text.toString().trim(),
-        fecha_nacimiento = etNacimiento.text.toString().trim(), // "YYYY-MM-DD"
+        fecha_nacimiento = etNacimiento.text.toString().trim(),
         email = etEmail.text.toString().trim(),
         password = etPassword.text.toString(),
         genero = etGenero.text.toString().trim(),

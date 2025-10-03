@@ -8,18 +8,6 @@
 		android:layout_height="match_parent"
 		tools:context=".Activities.MainActivity">
 
-	<!-- Imagen de portada (Picasso la cargará por URL) -->
-	<ImageView
-			android:id="@+id/ivFotoLogin"
-			android:layout_width="0dp"
-			android:layout_height="200dp"
-			android:scaleType="centerCrop"
-			android:contentDescription="@string/app_name"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			android:layout_margin="16dp"/>
-
 	<TextView
 			android:id="@+id/tvTitle"
 			android:layout_width="0dp"
@@ -28,7 +16,6 @@
 			android:textSize="20sp"
 			android:textStyle="bold"
 			android:gravity="center"
-			app:layout_constraintTop_toBottomOf="@id/ivFotoLogin"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			android:layout_marginStart="24dp"
